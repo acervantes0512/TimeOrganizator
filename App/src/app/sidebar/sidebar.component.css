@@ -1,0 +1,47 @@
+body{
+    background: #eee;
+}
+
+#side_nav{
+    background-color: #000;
+    min-width: 250px;
+    max-width: 250px;    
+}
+
+hr.h-color{
+    background: rgb(255, 255, 255);
+    border-color: rgba(141,194,111,1);
+}
+
+.sidebar li.active{
+    background: rgba(141,194,111,1);
+    border-radius: 8px;
+}
+
+.sidebar li.active a, .sidebar li.active a:hover, .sidebar li.active button, .sidebar li.active a:hover{
+    color: #000;
+}
+
+.sidebar li a, .sidebar li button{
+    color: #fff;    
+    cursor: pointer;
+}
+
+.collapsible {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.collapsible li {
+    display: block;
+}
+
+.collapsible li.visible {
+    display: block;
+} 
+
+.collapsible li:not(.visible) {
+    display: none;
+}
+

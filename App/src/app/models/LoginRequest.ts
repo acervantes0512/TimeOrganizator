@@ -1,4 +1,4 @@
-interface ILogin{
+interface LoginRequest{
     Username: string;
     Password: string;
 }

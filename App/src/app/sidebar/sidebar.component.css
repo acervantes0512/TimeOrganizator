@@ -3,27 +3,26 @@ body{
 }
 
 #side_nav{
-    background-color: #000;
+    background-color: #14213d;
     min-width: 250px;
     max-width: 250px;    
 }
 
 hr.h-color{
-    background: rgb(255, 255, 255);
-    border-color: rgba(141,194,111,1);
+    border-color: #ffffff;
 }
 
 .sidebar li.active{
-    background: rgba(141,194,111,1);
+    background: #fca311;
     border-radius: 8px;
 }
 
 .sidebar li.active a, .sidebar li.active a:hover, .sidebar li.active button, .sidebar li.active a:hover{
-    color: #000;
+    color: #14213d;
 }
 
 .sidebar li a, .sidebar li button{
-    color: #fff;    
+    color: #ffffff;    
     cursor: pointer;
 }
 

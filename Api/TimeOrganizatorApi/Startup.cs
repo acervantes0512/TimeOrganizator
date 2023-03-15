@@ -51,6 +51,16 @@ namespace TimeOrganizatorApi
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             //JWT Configuration
             var jwtSettings = Configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
@@ -79,17 +89,7 @@ namespace TimeOrganizatorApi
                 options.DefaultPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
-            });
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
+            });            
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TimeOrganizatorDBContext>(options =>
@@ -108,6 +108,8 @@ namespace TimeOrganizatorApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TimeOrganizatorApi v1"));
             }
 
+            app.UseCors("AllowAll");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -120,6 +122,7 @@ namespace TimeOrganizatorApi
             });
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
+            
         }
     }
 }

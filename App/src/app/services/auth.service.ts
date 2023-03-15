@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LoginRequest } from '../models/LoginRequest';
+import { LoginResponse } from '../models/LoginResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   private loggedIn = false;
-  private url = 'https://localhost:44389/api/Auth/login';
+  private url = 'https://localhost:44389/api/Auth';
 
   constructor(private http: HttpClient) { }
 

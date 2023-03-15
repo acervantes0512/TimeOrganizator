@@ -69,6 +69,13 @@ namespace Application.Services.Implementaciones
             {
                 Id = user.Id,
                 NombreUsuario = user.NombreUsuario,
+                Alias = user.Alias,
+                FechaCreacion = user.FechaCreacion,
+                FechaNacimiento = user.FechaNacimiento,
+                PrimerApellido = user.PrimerApellido,
+                PrimerNombre = user.PrimerNombre,
+                SegundoApellido = user.SegundoApellido,
+                SegundoNombre = user.SegundoNombre,
                 Token = token
             };
         }

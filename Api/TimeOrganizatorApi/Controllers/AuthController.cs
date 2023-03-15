@@ -34,7 +34,7 @@ namespace TimeOrganizatorApi.Controllers
                 return Unauthorized();
             }
 
-            return Ok(new { Token = user.Token });
+            return Ok(user);
         }
     }
 }

@@ -1,3 +1,12 @@
 export interface LoginResponse{
-    Token: string;    
+    id: number;
+    nombreUsuario: string;
+    fechaCreacion: Date;
+    primerNombre: string;
+    segundoNombre: string;
+    primerApellido: string;
+    segundoApellido: string;
+    alias: string;
+    fechaNacimiento: Date;
+    token: string;
 }

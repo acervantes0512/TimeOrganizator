@@ -12,6 +12,7 @@ export class AuthService {
 
   private loggedIn = false;
   private url = 'https://localhost:44389/api/Auth';
+  public User: LoginResponse;
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,8 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.url}/login`, loginData)
     .pipe(
       map((response: LoginResponse) => {
-        localStorage.setItem('token', response.Token);
+        localStorage.setItem('token', response.token);
+        this.User = response;
         return response;
       })
     );

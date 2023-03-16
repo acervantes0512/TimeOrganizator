@@ -6,7 +6,23 @@
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a routerLink="/login" class="nav-link active" aria-current="page" >Iniciar Sesión</a>
+            <a *ngIf="!userLoggedIn" routerLink="/login" class="nav-link active" aria-current="page" >Iniciar Sesión</a>
+            <div *ngIf="userLoggedIn" class="d-flex">
+              <a  class="nav-link active" aria-current="page" >{{loggedUser.primerNombre + ' ' + loggedUser.primerApellido}}</a>                            
+            
+              <div class="dropdown dropdown-menu-right">
+                <button class="btn btn-outline-secondary dropdown-toggle btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg" width="30" height="30" class="rounded-circle">
+                </button>
+
+                <ul class="dropdown dropdown-menu" style=" right: 0; left: auto;">
+                  <li><a routerLink="/login" class="dropdown-item px-3 d-block pointer" (click)="authService.logout()"><i class="fas fa-sign-out-alt"></i>  Cerrar Sesión</a></li>                  
+                </ul>
+
+              </div>             
+              
+            </div>
+            
           </li>
         </ul>
       </div>

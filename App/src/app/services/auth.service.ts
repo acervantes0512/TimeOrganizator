@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoginRequest } from '../models/LoginRequest';
 import { LoginResponse } from '../models/LoginResponse';
@@ -10,9 +10,9 @@ import { LoginResponse } from '../models/LoginResponse';
 })
 export class AuthService {
 
-  private loggedIn = false;
+  public loggedInSubject = new BehaviorSubject<boolean>(false);
   private url = 'https://localhost:44389/api/Auth';
-  public User: LoginResponse;
+  public User: LoginResponse;  
 
   constructor(private http: HttpClient) { }
 
@@ -23,12 +23,14 @@ export class AuthService {
       map((response: LoginResponse) => {
         localStorage.setItem('token', response.token);
         this.User = response;
+        this.loggedInSubject.next(true);
         return response;
       })
     );
   }
 
   logout() {
+    this.loggedInSubject.next(false);
     localStorage.removeItem('token');
   }
 
@@ -37,7 +39,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.getToken() !== null;
+    return this.loggedInSubject.value;
   }
 
 }

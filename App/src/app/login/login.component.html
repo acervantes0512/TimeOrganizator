@@ -7,16 +7,20 @@
                 </div>
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control form-control-sm" placeholder="Nombre de Usuario" id="floatingInput" formControlName="Username">
-                        <label for="floatingInput">Nombre de Usuario</label>                        
+                        <input type="email" class="form-control form-control-sm" [ngClass]="{'is-invalid': (loginForm.controls.username.invalid && submitted)}" placeholder="Nombre de Usuario" id="floatingInput" formControlName="username" [(ngModel)]="loginForm.value.username" required>
+                        <label for="floatingInput">Nombre de Usuario</label>                              
+                        <div class="invalid-feedback" *ngIf="submitted && loginForm.controls.username.invalid">El usuario es requerido</div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control form-control-sm" placeholder="Contraseña" id="floatingPassword" formControlName="Password">
+                        <input type="password" class="form-control form-control-sm" [ngClass]="{'is-invalid': (loginForm.controls.password.invalid && submitted)}" placeholder="Contraseña" id="floatingPassword" formControlName="password" [(ngModel)]="loginForm.value.password" required>
                         <label for="floatingPassword">Contraseña</label>
+                        <div *ngIf="submitted && loginForm.controls.password.invalid" class="invalid-feedback">La contraseña es requerida.</div>
+
                         <div class="mt-3">
                             <button type="submit" class="btn primaryBg">Iniciar Sesión</button>
                         </div>
-                    </div>
+                        
+                    </div>                    
                 </form>
                 <div class="mt-3">
                     <span>¿No tienes una cuenta? </span> <button class="p-0 border-0 bg-transparent primaryColor"> Crear Cuenta</button>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TipoProyecto } from '../models/TipoProyecto';
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +13,22 @@ export class TipoProyectoService {
   constructor(private http: HttpClient) { }
 
   // Obtener todos los tipos de proyecto
-  getTiposProyecto(): Observable<ITipoProyecto[]> {
-    return this.http.get<ITipoProyecto[]>(this.apiUrl);
+  getTiposProyecto(): Observable<TipoProyecto[]> {
+    return this.http.get<TipoProyecto[]>(this.apiUrl);
   }
 
   // Obtener un tipo de proyecto por ID
-  getTipoProyecto(id: number): Observable<ITipoProyecto> {
-    return this.http.get<ITipoProyecto>(`${this.apiUrl}/${id}`);
+  getTipoProyecto(id: number): Observable<TipoProyecto> {
+    return this.http.get<TipoProyecto>(`${this.apiUrl}/${id}`);
   }
 
   // Agregar un nuevo tipo de proyecto
-  addTipoProyecto(tipoProyecto: ITipoProyecto): Observable<ITipoProyecto> {
-    return this.http.post<ITipoProyecto>(this.apiUrl, tipoProyecto);
+  addTipoProyecto(tipoProyecto: TipoProyecto): Observable<TipoProyecto> {
+    return this.http.post<TipoProyecto>(this.apiUrl, tipoProyecto);
   }
 
   // Actualizar un tipo de proyecto existente
-  updateTipoProyecto(tipoProyecto: ITipoProyecto): Observable<any> {
+  updateTipoProyecto(tipoProyecto: TipoProyecto): Observable<any> {
     return this.http.put(`${this.apiUrl}/${tipoProyecto.id}`, tipoProyecto);
   }
 

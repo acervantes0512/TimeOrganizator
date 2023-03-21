@@ -1,4 +1,4 @@
-interface ITipoProyecto {
+export interface TipoProyecto {
   id: number;
   nombre : string;
   descripcion: string;

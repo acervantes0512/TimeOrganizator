@@ -9,6 +9,7 @@ namespace Persistence.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         IUsuarioRepository UsuarioRepository { get; }
+        ITiposProyectosRepository TiposProyectosRepository { get; }
         IGenericRepository<T> GetGenericRepository<T>() where T : class;
         void SaveChanges();
     }

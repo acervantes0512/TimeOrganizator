@@ -80,8 +80,8 @@ namespace TimeOrganizatorApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await _genericService.CreateAsync(entity);
-            return Ok();
+            T entityResponse = await _genericService.CreateAsync(entity);
+            return Ok(entityResponse);
         }
     }
 

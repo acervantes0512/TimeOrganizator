@@ -8,8 +8,8 @@ namespace Shared
     {
         public enum UserRoles
         {
-            Administrador,
-            Usuario            
+            administrador,
+            usuario            
         }
     }
 }

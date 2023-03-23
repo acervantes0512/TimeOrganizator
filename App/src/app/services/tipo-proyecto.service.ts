@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { TipoProyecto } from '../models/TipoProyecto';
+import { AuthService } from './auth.service';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,16 @@ import { TipoProyecto } from '../models/TipoProyecto';
 export class TipoProyectoService {
 
   apiUrl = 'https://localhost:44389/api/TipoProyecto';
+  public tiposProyectosSubject = new BehaviorSubject<TipoProyecto[]>([]);  
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { 
+    this.getTiposProyecto().subscribe((tiposProyecto) => {
+      this.tiposProyectosSubject.next(tiposProyecto);
+    });
+  }
 
   // Obtener todos los tipos de proyecto
-  getTiposProyecto(): Observable<TipoProyecto[]> {
+  getTiposProyecto(): Observable<TipoProyecto[]> {    
     return this.http.get<TipoProyecto[]>(this.apiUrl);
   }
 
@@ -24,7 +31,16 @@ export class TipoProyectoService {
 
   // Agregar un nuevo tipo de proyecto
   addTipoProyecto(tipoProyecto: TipoProyecto): Observable<TipoProyecto> {
-    return this.http.post<TipoProyecto>(this.apiUrl, tipoProyecto);
+    tipoProyecto.estadoId = 2;
+    tipoProyecto.usuarioId = this.authService.User.id;
+    return this.http.post<TipoProyecto>(this.apiUrl, tipoProyecto)
+      .pipe(
+        tap((response) => {
+          const tiposProyecto = this.tiposProyectosSubject.getValue();
+          tiposProyecto.push(response);
+          this.tiposProyectosSubject.next(tiposProyecto);
+        })
+      );
   }
 
   // Actualizar un tipo de proyecto existente

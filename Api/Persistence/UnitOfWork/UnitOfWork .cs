@@ -13,14 +13,17 @@ namespace Persistence.UnitOfWork
         private readonly TimeOrganizatorDBContext _context;
         private bool disposed = false;
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ITiposProyectosRepository _tiposProyectosRepository;
 
         public UnitOfWork(TimeOrganizatorDBContext context)
         {
             _context = context;
             _usuarioRepository = new UsuarioRepository(_context);
+            _tiposProyectosRepository = new TiposProyectosRepository(_context);
         }
 
         public IUsuarioRepository UsuarioRepository => _usuarioRepository;
+        public ITiposProyectosRepository TiposProyectosRepository => _tiposProyectosRepository;
 
         public IGenericRepository<T> GetGenericRepository<T>() where T : class
         {

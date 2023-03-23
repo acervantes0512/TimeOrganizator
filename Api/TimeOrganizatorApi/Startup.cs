@@ -1,5 +1,6 @@
 using Application.Services.Implementaciones;
 using Application.Services.Interfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -50,6 +51,11 @@ namespace TimeOrganizatorApi
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ITiposProyectosRepository, TiposProyectosRepository>();
+            services.AddScoped<ITiposProyectosService, TiposProyectosService>();
+            services.AddScoped<ITokenService, JWTService>();
+
+
 
             services.AddCors(options =>
             {
@@ -67,8 +73,8 @@ namespace TimeOrganizatorApi
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Constants.UserRoles.Administrador.ToString(), policy => policy.RequireRole(Constants.UserRoles.Administrador.ToString()));
-                options.AddPolicy(Constants.UserRoles.Usuario.ToString(), policy => policy.RequireRole(Constants.UserRoles.Usuario.ToString()));
+                options.AddPolicy(Constants.UserRoles.administrador.ToString(), policy => policy.RequireRole(Constants.UserRoles.administrador.ToString()));
+                options.AddPolicy(Constants.UserRoles.usuario.ToString(), policy => policy.RequireRole(Constants.UserRoles.usuario.ToString()));
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -114,7 +120,8 @@ namespace TimeOrganizatorApi
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {

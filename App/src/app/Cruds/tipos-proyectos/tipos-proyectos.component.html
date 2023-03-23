@@ -5,37 +5,26 @@
                 <h2>Gestionar <b>Tipos Proyectos</b></h2>
             </div>
             <div class="col-sm-6">
-                <a href="#nuevoModal" class="btn btn-success" data-toggle="modal"><span><i class="fas fa-plus"></i> Nuevo</span></a>
+                <button class="btn btn-success" (click)="openFormModal()" data-toggle="modal" data-target="#nuevoModal"><span><i class="fas fa-plus"></i> Nuevo</span></button>
             </div>
         </div>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-responsive">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>                    
-                    <th>Acciones</th> 
+                    <th class="w-25">Nombre</th>
+                    <th class="w-60">Descripción</th>                  
+                    <th class="w-15">Acciones</th> 
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                   <td>Trabajo</td> 
-                   <td>Actividades relacionadas al trabajo</td> 
-                   <td>Activo</td> 
+                <tr *ngFor="let tipoProyecto of tiposProyectos">
+                   <td>{{tipoProyecto.nombre}}</td> 
+                   <td>{{tipoProyecto.descripcion}}</td> 
                    <td>
                        <a href="#" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>
                        <a href="#" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Eliminar"></i></a>
                    </td>
-                </tr>
-                <tr>
-                    <td>Trabajo</td> 
-                    <td>Actividades relacionadas al trabajo</td> 
-                    <td>Activo</td> 
-                    <td>
-                        <a href="#" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>
-                        <a href="#" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Eliminar"></i></a>
-                    </td>
-                 </tr>
+                </tr>                
             </tbody>
         </table>
     </div>
@@ -44,12 +33,28 @@
 <div class="modal fade" id="nuevoModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form [formGroup]="formCrear" (ngSubmit)="submitModal()">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar Tipo Proyecto</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" (click)="closeFormModal()" class="close border-0" data-dismiss="modal" aria-hidden="true">&times;</button>                    
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" formControlName="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" formControlName="descripcion" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" (click)="closeFormModal()" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit" class="btn btn-success" value="Agregar">
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+

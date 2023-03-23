@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Services.Interfaces;
 using Domain.Entidades;
+using Domain.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.UnitOfWork;
@@ -20,12 +21,13 @@ namespace Application.Services.Implementaciones
     public class UsuarioService : IUsuarioService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ITokenService _tokenService;
         private readonly JwtSettings _jwtSettings;
 
-        public UsuarioService(IUnitOfWork unitOfWork, IOptions<JwtSettings> jwtSettings)
+        public UsuarioService(IUnitOfWork unitOfWork, ITokenService tokenService)
         {
             this._unitOfWork = unitOfWork;
-            this._jwtSettings = jwtSettings.Value;
+            this._tokenService = tokenService;
         }
 
         public async Task<UsuarioDto> CreateUserAsync(Usuario user)
@@ -63,7 +65,7 @@ namespace Application.Services.Implementaciones
                 throw new AuthenticationException("Invalid credentials");
             }
 
-            var token = await GenerateJwtToken(user);
+            var token = await this._tokenService.GenerateJwtToken(user);
 
             return new UsuarioDto
             {
@@ -80,24 +82,7 @@ namespace Application.Services.Implementaciones
             };
         }
 
-        private async Task<string> GenerateJwtToken(Usuario user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-            Rol role = await _unitOfWork.GetGenericRepository<Rol>().GetByIdAsync(user.RolId);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, user.NombreUsuario.ToString()),
-                    new Claim(ClaimTypes.Role, role.Nombre),
-                }),
-                Expires = DateTime.UtcNow.AddSeconds(_jwtSettings.ExpirationSeconds),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+        
 
         private string HashPassword(string password)
         {
@@ -108,5 +93,6 @@ namespace Application.Services.Implementaciones
                 return hash;
             }
         }
+
     }
 }

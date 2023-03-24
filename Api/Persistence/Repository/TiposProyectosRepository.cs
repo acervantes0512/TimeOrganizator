@@ -21,7 +21,7 @@ namespace Persistence.Repository
         {
             return await _context.Set<TipoProyecto>()
                 .Where(p => p.UsuarioId == idUser)
-                .Select(p => new TipoProyecto { Id = p.Id, Nombre = p.Nombre })
+                .Select(p => new TipoProyecto { Id = p.Id, Nombre = p.Nombre, Descripcion = p.Descripcion, EstadoId = p.EstadoId, UsuarioId = p.UsuarioId})
                 .AsNoTracking()
                 .ToListAsync();
         }

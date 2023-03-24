@@ -1,4 +1,5 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.DTOs;
+using Application.Services.Interfaces;
 using Domain.Entidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,10 @@ namespace TimeOrganizatorApi.Controllers
         [HttpGet]
         [Route("GetByUser")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<TipoProyecto>>> GetByUser()
+        public async Task<ActionResult<IEnumerable<TipoProyectoDTO>>> GetByUser()
         {
             var idUsuario = int.Parse(User.FindFirstValue("idUsuario"));
-            return Ok(this._tiposProyectosService.TiposProyectosPorIdUsuario(Convert.ToInt32(idUsuario)));
+            return Ok(await this._tiposProyectosService.TiposProyectosPorIdUsuario(Convert.ToInt32(idUsuario)));
         }
     }
 }

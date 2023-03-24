@@ -14,7 +14,11 @@ export class TipoProyectoService {
   public tiposProyectosSubject = new BehaviorSubject<TipoProyecto[]>([]);  
 
   constructor(private http: HttpClient, private authService: AuthService) { 
-    this.getTiposProyecto().subscribe((tiposProyecto) => {
+    this.cargarTiposProyectos();
+  }
+
+  cargarTiposProyectos(){
+    this.getTiposProyectoByUser().subscribe((tiposProyecto) => {
       this.tiposProyectosSubject.next(tiposProyecto);
     });
   }
@@ -22,6 +26,10 @@ export class TipoProyectoService {
   // Obtener todos los tipos de proyecto
   getTiposProyecto(): Observable<TipoProyecto[]> {    
     return this.http.get<TipoProyecto[]>(this.apiUrl);
+  }
+
+  getTiposProyectoByUser(): Observable<TipoProyecto[]> {    
+    return this.http.get<TipoProyecto[]>(this.apiUrl+"/GetByUser");
   }
 
   // Obtener un tipo de proyecto por ID
@@ -51,6 +59,10 @@ export class TipoProyectoService {
   // Eliminar un tipo de proyecto
   deleteTipoProyecto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  resetearTiposProyectos(){
+    this.tiposProyectosSubject.next([]);
   }
 
 }

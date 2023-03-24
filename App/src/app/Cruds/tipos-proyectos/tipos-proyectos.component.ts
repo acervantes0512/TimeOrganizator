@@ -21,7 +21,7 @@ export class TiposProyectosComponent implements OnInit {
   ngOnInit(): void {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('nuevoModal')
-    );
+    );    
 
     this.formCrear = this.formBuilder.group({
       nombre: ['',Validators.required],
@@ -35,13 +35,11 @@ export class TiposProyectosComponent implements OnInit {
     )
 
   }
-
   openFormModal(){
     this.formModal.show();
   }
 
   submitModal(){
-    debugger
     this.tipoProyectoService.addTipoProyecto(this.formCrear.value).subscribe(
       () => {        
         console.log("Creación exitosa!!");

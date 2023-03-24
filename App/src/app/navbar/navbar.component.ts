@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { subscribeOn } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';;
 import { LoginResponse } from '../models/LoginResponse';
 import { AuthService } from '../services/auth.service';
+import { TipoProyectoService } from '../services/tipo-proyecto.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +12,8 @@ export class NavbarComponent implements OnInit {
 
   loggedUser : LoginResponse;
   userLoggedIn : boolean = false;
-  constructor(public authService: AuthService) {
+
+  constructor(public authService: AuthService, private tiposProyectosService: TipoProyectoService) {
     this.loggedUser = authService.User;
    }
 
@@ -26,6 +27,11 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
-  }  
+  }
+  
+  logOut(){
+    this.authService.logout();
+    this.tiposProyectosService.resetearTiposProyectos();
+  }
 
 }

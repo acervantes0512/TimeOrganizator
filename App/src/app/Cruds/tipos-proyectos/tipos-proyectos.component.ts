@@ -11,19 +11,21 @@ declare var window: any;
 })
 export class TiposProyectosComponent implements OnInit {
 
-  formModal: any;
-  formCrear: FormGroup;
+  objModal: any;
+  formTipoProyecto: FormGroup;
   tiposProyectos: TipoProyecto[];
+  selectedTipoProyecto : TipoProyecto;
+  editMode: boolean = false;
   
 
   constructor(private formBuilder: FormBuilder, private tipoProyectoService: TipoProyectoService) { }
 
   ngOnInit(): void {
-    this.formModal = new window.bootstrap.Modal(
+    this.objModal = new window.bootstrap.Modal(
       document.getElementById('nuevoModal')
     );    
 
-    this.formCrear = this.formBuilder.group({
+    this.formTipoProyecto = this.formBuilder.group({
       nombre: ['',Validators.required],
       descripcion: ['',Validators.required]
     });
@@ -36,11 +38,19 @@ export class TiposProyectosComponent implements OnInit {
 
   }
   openFormModal(){
-    this.formModal.show();
+    this.editMode = false;
+    this.objModal.show();
   }
 
   submitModal(){
-    this.tipoProyectoService.addTipoProyecto(this.formCrear.value).subscribe(
+    if(this.editMode)
+      this.saveEditRecord();
+    else
+      this.createRecord();
+  }
+
+  createRecord(){
+    this.tipoProyectoService.addTipoProyecto(this.formTipoProyecto.value).subscribe(
       () => {        
         console.log("Creación exitosa!!");
       },
@@ -48,13 +58,55 @@ export class TiposProyectosComponent implements OnInit {
         console.log("Error en la creación!!");
         
       }
+    );
+    this.formTipoProyecto.reset();      
+    this.objModal.hide();
+  }
+
+  saveEditRecord(){
+    var updatedObject:TipoProyecto = this.formTipoProyecto.value;
+    this.selectedTipoProyecto.descripcion = updatedObject.descripcion;
+    this.selectedTipoProyecto.nombre = updatedObject.nombre;
+
+    this.tipoProyectoService.updateTipoProyecto(this.selectedTipoProyecto).subscribe(
+      () => {
+        console.log("Actualización Exitosa!!");        
+      },
+      error => {
+        console.log("Error Actualizando!!");
+        
+      }
+    );
+    this.formTipoProyecto.reset();
+    this.objModal.hide();
+  }
+
+  closeFormModal(){    
+    this.formTipoProyecto.reset();
+    this.objModal.hide();
+  }
+
+  editRecord(selectedTipoProy: TipoProyecto){
+    this.selectedTipoProyecto = selectedTipoProy;
+    this.editMode = true;
+    this.formTipoProyecto.setValue({
+      nombre: selectedTipoProy.nombre,
+      descripcion: selectedTipoProy.descripcion      
+    });
+    this.objModal.show();
+  }
+
+  deleteRecord(id:number){
+    this.tipoProyectoService.deleteTipoProyecto(id).subscribe(
+      () => {
+        console.log("Eliminación Exitosa!");        
+      },
+      error => {
+        console.log("Error al eliminar!!");
+        
+      }
     )
-
-    this.formModal.hide();
   }
 
-  closeFormModal(){
-    this.formModal.hide();
-  }
 
 }

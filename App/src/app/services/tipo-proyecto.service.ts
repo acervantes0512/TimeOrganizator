@@ -53,12 +53,32 @@ export class TipoProyectoService {
 
   // Actualizar un tipo de proyecto existente
   updateTipoProyecto(tipoProyecto: TipoProyecto): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${tipoProyecto.id}`, tipoProyecto);
+    return this.http.put(`${this.apiUrl}`, tipoProyecto).pipe(
+      tap(
+        () => {
+          const currentList = this.tiposProyectosSubject.getValue();
+          const updatedList = currentList.map(x => {
+            if(x.id === tipoProyecto.id){
+              return tipoProyecto
+            } else {
+              return x;
+            }
+          });
+          this.tiposProyectosSubject.next(updatedList);
+        }
+      )
+    )
   }
 
   // Eliminar un tipo de proyecto
   deleteTipoProyecto(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+      tap(()=> {
+        const currentTiposProyectos = this.tiposProyectosSubject.getValue();
+        const  newTiposProyectos = currentTiposProyectos.filter(x => x.id !== id);
+        this.tiposProyectosSubject.next(newTiposProyectos);
+      })
+    );
   }
 
   resetearTiposProyectos(){

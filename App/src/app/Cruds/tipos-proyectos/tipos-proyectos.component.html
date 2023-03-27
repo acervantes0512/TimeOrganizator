@@ -21,8 +21,8 @@
                    <td>{{tipoProyecto.nombre}}</td> 
                    <td>{{tipoProyecto.descripcion}}</td> 
                    <td>
-                       <a href="#" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>
-                       <a href="#" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Eliminar"></i></a>
+                       <a (click)="editRecord(tipoProyecto)" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>
+                       <a (click)="deleteRecord(tipoProyecto.id)" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Eliminar"></i></a>
                    </td>
                 </tr>                
             </tbody>
@@ -33,9 +33,10 @@
 <div class="modal fade" id="nuevoModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form [formGroup]="formCrear" (ngSubmit)="submitModal()">
+            <form [formGroup]="formTipoProyecto" (ngSubmit)="submitModal()">
                 <div class="modal-header">
-                    <h4 class="modal-title">Agregar Tipo Proyecto</h4>
+                    <h4 *ngIf="!editMode" class="modal-title">Crear nuevo Tipo Proyecto</h4>
+                    <h4 *ngIf="editMode" class="modal-title">Editar Tipo Proyecto</h4>
                     <button type="button" (click)="closeFormModal()" class="close border-0" data-dismiss="modal" aria-hidden="true">&times;</button>                    
                 </div>
                 <div class="modal-body">
@@ -50,7 +51,8 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" (click)="closeFormModal()" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-success" value="Agregar">
+                    <input *ngIf="!editMode" type="submit" class="btn btn-success" value="Agregar">
+                    <input *ngIf="editMode" type="submit" class="btn btn-success" value="Guardar">
                 </div>
             </form>
         </div>

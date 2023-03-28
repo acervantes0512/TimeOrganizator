@@ -48,6 +48,8 @@ namespace TimeOrganizatorApi
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITiposProyectosRepository, TiposProyectosRepository>();
             services.AddScoped<ITiposProyectosService, TiposProyectosService>();
+            services.AddScoped<ITiposActividadRepository, TiposActividadRepository>();
+            services.AddScoped<ITipoActividadService, TipoActividadService>();
             services.AddScoped<ITokenService, JWTService>();
             services.AddAutoMapper(typeof(Startup));
 

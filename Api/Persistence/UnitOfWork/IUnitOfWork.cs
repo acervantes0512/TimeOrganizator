@@ -10,6 +10,7 @@ namespace Persistence.UnitOfWork
     {
         IUsuarioRepository UsuarioRepository { get; }
         ITiposProyectosRepository TiposProyectosRepository { get; }
+        ITiposActividadRepository TiposActividadRepository { get; }
         IGenericRepository<T> GetGenericRepository<T>() where T : class;
         void SaveChanges();
     }

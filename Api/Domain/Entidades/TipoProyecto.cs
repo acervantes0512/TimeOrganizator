@@ -18,6 +18,7 @@ namespace Domain.Entidades
         public ICollection<AsignacionTipoProyectoPorDia> AsignacionesTipoProyectoPorDia { get; set; }
         public ICollection<Proyecto> Proyectos { get; set; }
         public ICollection<TipoActividad> TiposActividades { get; set; }
+        public ICollection<TipoTiempo> TiposTiempo { get; set; }
 
     }
 }

@@ -90,6 +90,12 @@ namespace Persistence.EntityFramework
                 .HasForeignKey(r => r.TipoActividadId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<TipoTiempo>()
+               .HasOne(r => r.TipoProyecto)
+               .WithMany(tp => tp.TiposTiempo)
+               .HasForeignKey(r => r.TipoProyectoId)
+               .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Usuario>()
             .HasIndex(p => p.NombreUsuario)
             .IsUnique();

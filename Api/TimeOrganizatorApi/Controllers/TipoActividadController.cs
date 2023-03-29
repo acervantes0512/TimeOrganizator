@@ -1,5 +1,7 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.DTOs;
+using Application.Services.Interfaces;
 using Domain.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,8 +12,18 @@ namespace TimeOrganizatorApi.Controllers
 {
     public class TipoActividadController : CrudGenericoController<TipoActividad>
     {
-        public TipoActividadController(IGenericService<TipoActividad> genericService) : base(genericService)
+        private readonly ITipoActividadService _tipoActividadService;
+
+        public TipoActividadController(IGenericService<TipoActividad> genericService, ITipoActividadService tipoActividadService) : base(genericService)
         {
+            this._tipoActividadService = tipoActividadService;
+        }
+
+        [HttpGet]
+        [Route("GetByTypeProject")]
+        public async Task<ActionResult<IEnumerable<TipoActividadDTO>>> GetByTypeProject(int id)
+        {
+            return Ok(await this._tipoActividadService.ObtenerTiposDeActividadesPorTipoProyecto(id));
         }
     }
 }

@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let tipoProyecto of tiposProyectos">
-                   <td>{{tipoProyecto.nombre}}</td> 
+                   <td><a class="cursor-pointer">{{tipoProyecto.nombre}}</a></td> 
                    <td>{{tipoProyecto.descripcion}}</td> 
                    <td>
                        <a (click)="editRecord(tipoProyecto)" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>

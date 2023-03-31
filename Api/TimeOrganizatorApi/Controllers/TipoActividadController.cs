@@ -20,8 +20,8 @@ namespace TimeOrganizatorApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetByTypeProject")]
-        public async Task<ActionResult<IEnumerable<TipoActividadDTO>>> GetByTypeProject(int id)
+        [Route("GetByProjectType")]
+        public async Task<ActionResult<IEnumerable<TipoActividadDTO>>> GetByProjectType(int id)
         {
             return Ok(await this._tipoActividadService.ObtenerTiposDeActividadesPorTipoProyecto(id));
         }

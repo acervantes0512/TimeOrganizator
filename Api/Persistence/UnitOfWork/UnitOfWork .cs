@@ -15,6 +15,7 @@ namespace Persistence.UnitOfWork
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly ITiposProyectosRepository _tiposProyectosRepository;
         private readonly ITiposActividadRepository _tiposActividadRepository;
+        private readonly ITiposTiempoRepository _tiposTiempoRepository;
 
         public UnitOfWork(TimeOrganizatorDBContext context)
         {
@@ -22,11 +23,13 @@ namespace Persistence.UnitOfWork
             _usuarioRepository = new UsuarioRepository(_context);
             _tiposProyectosRepository = new TiposProyectosRepository(_context);
             _tiposActividadRepository = new TiposActividadRepository(_context);
+            _tiposTiempoRepository = new TiposTiempoRepository(_context);
         }
 
         public IUsuarioRepository UsuarioRepository => _usuarioRepository;
         public ITiposProyectosRepository TiposProyectosRepository => _tiposProyectosRepository;
         public ITiposActividadRepository TiposActividadRepository => _tiposActividadRepository;
+        public ITiposTiempoRepository TiposTiempoRepository => _tiposTiempoRepository;
 
         public IGenericRepository<T> GetGenericRepository<T>() where T : class
         {

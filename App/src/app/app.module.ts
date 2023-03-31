@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './incerceptors/auth.interceptor';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
+import { DetalleTipoProyectoComponent } from './detalle-tipo-proyecto/detalle-tipo-proyecto.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AuthGuardGuard } from './guards/auth-guard.guard';
     TiposActividadComponent,
     TiposTiempoComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    DetalleTipoProyectoComponent
   ],
   imports: [
     BrowserModule,

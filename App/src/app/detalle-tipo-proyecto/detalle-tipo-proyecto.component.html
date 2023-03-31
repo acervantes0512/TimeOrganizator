@@ -2,7 +2,7 @@
     <div class="table-wrapper">
         <div class="table-title d-flex">
             <div class="col-sm-6">
-                <h2>Gestionar <b>Tipos Proyectos</b></h2>
+                <h2>Tipos de Actividades</h2>
             </div>
             <div class="col-sm-6">
                 <button class="btn btn-success" (click)="openFormModal()" data-toggle="modal" data-target="#nuevoModal"><span><i class="fas fa-plus"></i> Nuevo</span></button>
@@ -17,14 +17,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tipoProyecto of tiposProyectos">
+                <tr *ngFor="let tipoActividad of tiposActividades">
                    <td>
-                       <a class="detail" [routerLink]="['/detalleTipoProyecto',tipoProyecto.id]">{{tipoProyecto.nombre}}</a>
+                       <a class="detail" [routerLink]="['/detalleTipoProyecto',tipoActividad.id]">{{tipoActividad.nombre}}</a>
                     </td> 
-                   <td>{{tipoProyecto.descripcion}}</td> 
+                   <td>{{tipoActividad.descripcion}}</td> 
                    <td>
-                       <a (click)="editRecord(tipoProyecto)" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>
-                       <a (click)="deleteRecord(tipoProyecto.id)" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Eliminar"></i></a>
+                       <a (click)="editarTipoActivividad(tipoActividad)" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Editar"></i></a>
+                       <a (click)="eliminarTipoActividad(tipoActividad.id)" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Eliminar"></i></a>
                    </td>
                 </tr>                
             </tbody>
@@ -32,14 +32,14 @@
     </div>
 </div>
 
-<div class="modal fade" id="nuevoModal">
+<!-- <div class="modal fade" id="modalTipoActividades">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form [formGroup]="formTipoProyecto" (ngSubmit)="submitModal()">
+            <form [formGroup]="formTipoActividad" (ngSubmit)="submitModalTipoActividad()">
                 <div class="modal-header">
-                    <h4 *ngIf="!editMode" class="modal-title">Crear nuevo Tipo Proyecto</h4>
-                    <h4 *ngIf="editMode" class="modal-title">Editar Tipo Proyecto</h4>
-                    <button type="button" (click)="closeFormModal()" class="close border-0" data-dismiss="modal" aria-hidden="true">&times;</button>                    
+                    <h4 *ngIf="!editModeTipoActividad" class="modal-title">Crear nuevo Tipo Actividad</h4>
+                    <h4 *ngIf="editModeTipoActividad" class="modal-title">Editar Tipo Actividad</h4>
+                    <button type="button" (click)="closeFormModalTipoActividad()" class="close border-0" data-dismiss="modal" aria-hidden="true">&times;</button>                    
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -52,13 +52,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="button" (click)="closeFormModal()" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input *ngIf="!editMode" type="submit" class="btn btn-success" value="Agregar">
-                    <input *ngIf="editMode" type="submit" class="btn btn-success" value="Guardar">
+                    <input type="button" (click)="closeFormModalTipoActividad()" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input *ngIf="!editModeTipoActividad" type="submit" class="btn btn-success" value="Agregar">
+                    <input *ngIf="editModeTipoActividad" type="submit" class="btn btn-success" value="Guardar">
                 </div>
             </form>
         </div>
     </div>
-</div>
-
-
+</div> -->

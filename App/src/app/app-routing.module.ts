@@ -4,6 +4,7 @@ import { TiposActividadComponent } from './Cruds/tipos-actividad/tipos-actividad
 import { TiposProyectosComponent } from './Cruds/tipos-proyectos/tipos-proyectos.component';
 import { TiposTiempoComponent } from './Cruds/tipos-tiempo/tipos-tiempo.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DetalleTipoProyectoComponent } from './detalle-tipo-proyecto/detalle-tipo-proyecto.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { ListaProyectosComponent } from './lista-proyectos/lista-proyectos.component';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'proyecto', component: ProyectoComponent},
   { path: 'reportes', component: ReportesComponent},
   { path: 'tiposProyectos', component: TiposProyectosComponent, canActivate:[AuthGuardGuard]},
+  { path: 'detalleTipoProyecto/:id', component: DetalleTipoProyectoComponent, canActivate:[AuthGuardGuard]},
   { path: 'tiposActividad', component: TiposActividadComponent},
   { path: 'tiposTiempo', component: TiposTiempoComponent},
   { path: 'login', component: LoginComponent},

@@ -11,18 +11,18 @@ namespace TimeOrganizatorApi.Controllers
 {
     public class TipoTiempoController : CrudGenericoController<TipoTiempo>
     {
-        private readonly ITipoActividadService _tipoActividadService;
+        private readonly ITiposTiempoService _tipoTiempoService;
 
-        public TipoTiempoController(IGenericService<TipoTiempo> genericService, ITipoActividadService tipoActividadService) : base(genericService)
+        public TipoTiempoController(IGenericService<TipoTiempo> genericService, ITiposTiempoService tipoTiempoService) : base(genericService)
         {
-            this._tipoActividadService = tipoActividadService;
+            this._tipoTiempoService = tipoTiempoService;
         }
 
         [HttpGet]
         [Route("getByProjectType")]
         public async Task<ActionResult<IEnumerable<TipoActividadDTO>>> getByProjectType(int id)
         {
-            var result = await this._tipoActividadService.ObtenerTiposDeActividadesPorTipoProyecto(id);
+            var result = await this._tipoTiempoService.TiposTiempoPorIdProyecto(id);
             return Ok(result);
         }
     }

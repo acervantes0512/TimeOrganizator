@@ -94,3 +94,32 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalTipoTiempo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formTipoTiempo" (ngSubmit)="submitModalTipoTiempo()">
+                <div class="modal-header">
+                    <h4 *ngIf="!editModeTipoTiempo" class="modal-title">Crear nuevo Tipo Tiempo</h4>
+                    <h4 *ngIf="editModeTipoTiempo" class="modal-title">Editar Tipo Tiempo</h4>
+                    <button type="button" (click)="closeFormModalTipoTiempo()" class="close border-0" data-dismiss="modal" aria-hidden="true">&times;</button>                    
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" formControlName="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" formControlName="descripcion" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" (click)="closeFormModalTipoTiempo()" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input *ngIf="!editModeTipoTiempo" type="submit" class="btn btn-success" value="Agregar">
+                    <input *ngIf="editModeTipoTiempo" type="submit" class="btn btn-success" value="Guardar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

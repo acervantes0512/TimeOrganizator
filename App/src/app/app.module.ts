@@ -19,6 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './incerceptors/auth.interceptor';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { DetalleTipoProyectoComponent } from './detalle-tipo-proyecto/detalle-tipo-proyecto.component';
+import { DiasSemanaComponent } from './dias-semana/dias-semana.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DetalleTipoProyectoComponent } from './detalle-tipo-proyecto/detalle-ti
     TiposTiempoComponent,
     NavbarComponent,
     LoginComponent,
-    DetalleTipoProyectoComponent
+    DetalleTipoProyectoComponent,
+    DiasSemanaComponent
   ],
   imports: [
     BrowserModule,

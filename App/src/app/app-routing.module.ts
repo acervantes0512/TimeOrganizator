@@ -5,6 +5,7 @@ import { TiposProyectosComponent } from './Cruds/tipos-proyectos/tipos-proyectos
 import { TiposTiempoComponent } from './Cruds/tipos-tiempo/tipos-tiempo.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetalleTipoProyectoComponent } from './detalle-tipo-proyecto/detalle-tipo-proyecto.component';
+import { DiasSemanaComponent } from './dias-semana/dias-semana.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { ListaProyectosComponent } from './lista-proyectos/lista-proyectos.component';
 import { LoginComponent } from './login/login.component';
@@ -21,7 +22,9 @@ const routes: Routes = [
   { path: 'detalleTipoProyecto/:id', component: DetalleTipoProyectoComponent, canActivate:[AuthGuardGuard]},
   { path: 'tiposActividad', component: TiposActividadComponent},
   { path: 'tiposTiempo', component: TiposTiempoComponent},
-  { path: 'login', component: LoginComponent},
+  { path: 'diassemana', component: DiasSemanaComponent},
+  { path: 'login', component: LoginComponent}
+
 ];
 
 @NgModule({
